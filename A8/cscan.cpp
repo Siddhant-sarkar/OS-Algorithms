@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n ; cin >> n;
+	vector<int> arr(n);
+	for(int i=0;i<n;i++) cin>> arr[i];
+	sort(arr.begin(),arr.end());
+	int crp =-1,mx = INT_MAX;
+	cin >> crp >> mx;
+	mx--;
+
+	int idx =-1;
+	for(int i=0;i<n;i++){
+		idx =i;
+		if(arr[i]>crp){
+			break;
+		}
+	}
+	int st = abs(crp - arr[idx]);
+	cout << crp << " --> " << arr[idx]<<endl;
+	for(int i=idx ;i<(int)arr.size()-1;i++){
+		cout<< arr[i] << " --> " << arr[i+1]<<endl;
+		st += abs(arr[i]-arr[i+1]);
+		crp = arr[i+1];
+	}
+	// this is only for scan algo
+	cout <<*arr.rbegin()<<" --> "<<mx<<endl;
+	st += abs(mx - *arr.rbegin());
+	crp = mx;
+	crp =0;
+	cout << 0 <<" --> "<<arr[0]<<endl;
+	st += arr[0];
+	for(int i =0;i<idx-1;i++){
+		cout << arr[i] << " --> " <<arr[i+1]<<endl;
+		st += abs(arr[i]- arr[i+1]);
+	}
+	st+=mx;
+	cout<<"total seek time is : "<<st<<endl;
+}
