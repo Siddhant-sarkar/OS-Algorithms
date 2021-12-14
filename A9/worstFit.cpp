@@ -10,14 +10,16 @@ int main(){
 	vector<int> pr_size(m);
 	for(int i=0;i<m;i++) cin>>pr_size[i];
 
-	// first fit
+	// best fit
 	for(auto pr : pr_size)	{
-		int idx = -1;
+		int maxa = INT_MIN ,idx = -1;
 		for(int i=0;i<n;i++){
-			if(pr <= mem_space[i].first && mem_space[i].second){
-				idx = i;
-				mem_space[i].second = false;
-				break;
+			if(mem_space[i].first-pr>=0 && mem_space[i].second ){
+				if(mem_space[i].first-pr > maxa){
+					maxa = mem_space[i].first-pr;
+					idx = i;
+					mem_space[i].second = 0;
+				}
 			}
 		}
 		if(idx==-1) cout<<"The process "<< pr << " can't be allocated\n";
